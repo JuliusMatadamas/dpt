@@ -1,0 +1,20 @@
+{
+    "name": "juliu/dpt",
+    "description": "Proyecto terminal",
+    "autoload": {
+        "psr-4": {
+            "Juliu\\Dpt\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Julio C. Matadamas Z."
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}
