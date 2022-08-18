@@ -22,29 +22,30 @@ class Router
         $this->routes['get'][$path] = $callback;
     }
 
+    /**
+     * Se inicia la aplicación obtienendo el método y la ruta para después renderizar
+     * la vista y ejecutar el método correspondiente
+     * @return mixed|string|string[]
+     */
     public function resolve()
     {
         $path = $this->request->getPath ();// Se obtiene la ruta
         $method = $this->request->getMethod ();// Se obtiene el tipo de petición HTTP (get, post, put, patch, delete)
-        $callback = $this->routes[$method][$path] ?? false;
+        $callback = $this->routes[$method][$path] ?? false;// Se asignan a la propiedad $routes y después a la variable $callback
 
+        // Si la ruta no se encuentra, se renderiza la vista de error
         if ($callback === false)
         {
-            return "Not found";
+            return $this->renderView("not_found");
         }
 
-        // renderizar la vista
+        // Si la ruta es válida, se renderiza la vista
         if (is_string ($callback))
         {
             return $this->renderView($callback);
         }
 
         return call_user_func ($callback);
-
-        /*echo "<pre>";
-        var_dump ($callback);
-        echo "</pre>";
-        exit;*/
     }
 
     /**
@@ -53,6 +54,22 @@ class Router
      */
     public function renderView($view)
     {
-        include_once __DIR__."/../views/$view.php";
+        $layoutContent = $this->layoutContent();
+        $viewContent = $this->renderOnlyView ($view);
+        return str_replace('{{content}}', $viewContent, $layoutContent);
+    }
+
+    protected function layoutContent()
+    {
+        ob_start();
+        include_once App::$ROOT_DIR."/views/layouts/main.php";
+        return ob_get_clean();
+    }
+
+    protected function renderOnlyView($view)
+    {
+        ob_start();
+        include_once App::$ROOT_DIR."/views/$view.php";
+        return ob_get_clean();
     }
 }

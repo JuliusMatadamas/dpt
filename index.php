@@ -9,12 +9,15 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use app\core\App;
 
+// Variable con la dirección absoluta del sitio en el servidor
+$dirname = dirname(__DIR__) . '/' . $_SERVER["HTTP_HOST"];
+
 /**
  * ================================================================================================
- * Se crea una nueva instancia de la clase App
+ * Se crea una nueva instancia de la clase App y se le pasa como párametro la dirección absoluta
  * ================================================================================================
  */
-$app = new App();
+$app = new App($dirname);
 
 
 /**
