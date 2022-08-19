@@ -7,6 +7,7 @@
  */
 require_once __DIR__ . '/vendor/autoload.php';
 
+use app\controllers\LoginController;
 use app\core\App;
 
 // Variable con la dirección absoluta del sitio en el servidor
@@ -28,7 +29,8 @@ $app = new App($dirname);
 $app->router->get ('/', 'home');
 $app->router->get ('/home', 'home');
 $app->router->get ('/inicio', 'home');
-$app->router->get ('/login', 'login');
+$app->router->get ('/login', [LoginController::class, 'index']);
+$app->router->post ('/login', [LoginController::class, 'login']);
 
 
 /**
