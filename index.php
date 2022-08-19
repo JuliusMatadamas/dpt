@@ -7,6 +7,7 @@
  */
 require_once __DIR__ . '/vendor/autoload.php';
 
+use app\controllers\HomeController;
 use app\controllers\LoginController;
 use app\core\App;
 
@@ -26,9 +27,11 @@ $app = new App($dirname);
  * Rutas de la aplicación
  * ================================================================================================
  */
-$app->router->get ('/', 'home');
-$app->router->get ('/home', 'home');
-$app->router->get ('/inicio', 'home');
+// Inicio
+$app->router->get ('/', [HomeController::class, 'index']);
+$app->router->get ('/home', [HomeController::class, 'index']);
+$app->router->get ('/inicio', [HomeController::class, 'index']);
+// Login
 $app->router->get ('/login', [LoginController::class, 'index']);
 $app->router->post ('/login', [LoginController::class, 'login']);
 

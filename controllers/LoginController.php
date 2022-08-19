@@ -25,7 +25,10 @@ class LoginController
     }
 
     public static function login(Request $request) {
-        $body = $request->getBody (); // Se obtienen los párametros
-        return "data submitted";
+        if ($request->isPost())
+        {
+            $body = $request->getBody (); // Se obtienen los párametros
+            return "data submitted";
+        }
     }
 }

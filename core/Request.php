@@ -20,9 +20,19 @@ class Request
         return substr($path, 0, $position);
     }
 
-    public function getMethod()
+    public function method()
     {
         return strtolower ($_SERVER['REQUEST_METHOD']);
+    }
+
+    public function isGet()
+    {
+        return $this->method() === 'get';
+    }
+
+    public function isPost()
+    {
+        return $this->method() === 'post';
     }
 
     /**
@@ -32,7 +42,7 @@ class Request
     public function getBody()
     {
         $body = [];
-        if ($this->getMethod() === 'get')
+        if ($this->isGet ())
         {
             foreach ($_GET as $key => $value)
             {
@@ -40,7 +50,7 @@ class Request
             }
         }
 
-        if ($this->getMethod() === 'post')
+        if ($this->isPost ())
         {
             foreach ($_POST as $key => $value)
             {
