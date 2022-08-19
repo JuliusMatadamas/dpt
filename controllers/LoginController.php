@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\core\App;
+use app\core\Request;
 
 class LoginController
 {
@@ -23,7 +24,8 @@ class LoginController
     public static function delete() {
     }
 
-    public static function login() {
+    public static function login(Request $request) {
+        $body = $request->getBody (); // Se obtienen los párametros
         return "data submitted";
     }
 }
