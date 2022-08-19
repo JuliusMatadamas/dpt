@@ -47,7 +47,7 @@ class Router
     public function resolve()
     {
         $path = $this->request->getPath ();// Se obtiene la ruta
-        $method = $this->request->getMethod ();// Se obtiene el tipo de petición HTTP (get, post, put, patch, delete)
+        $method = $this->request->method ();// Se obtiene el tipo de petición HTTP (get, post, put, patch, delete)
         $callback = $this->routes[$method][$path] ?? false;// Se asignan a la propiedad $routes y después a la variable $callback
 
         // Si la ruta no se encuentra, se renderiza la vista de error
