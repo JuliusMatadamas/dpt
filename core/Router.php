@@ -5,15 +5,17 @@ namespace app\core;
 class Router
 {
     public Request $request;
+    public Response $response;
     protected array $routes = [];
 
     /**
      * Router constructor.
      * @param Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
 
 
@@ -36,6 +38,7 @@ class Router
         // Si la ruta no se encuentra, se renderiza la vista de error
         if ($callback === false)
         {
+            $this->response->setStatusCode (404);
             return $this->renderView("not_found");
         }
 
